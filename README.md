@@ -103,5 +103,5 @@ PixooRadar/
 ## Credits
 
 - [pizzoo](https://github.com/pabletos/pizzoo) - Pixoo display library
-- [FlightRadar24](https://github.com/JeanExtique/FlightRadar24-API) - Flight data API
+- [FlightRadar24](https://github.com/JeanExtreme002/FlightRadarAPI) - Flight data API
 - NOAA - METAR weather data
