@@ -7,15 +7,15 @@ Modify these values to customize the flight tracker for your setup.
 # =============================================================================
 # Pixoo Device Settings
 # =============================================================================
-PIXOO_IP = "192.168.178.36"
+PIXOO_IP = "192.168.x.x"   # Replace with your Pixoo's IP address
 PIXOO_PORT = 80
 
 # =============================================================================
 # Location for Flight Tracking
 # =============================================================================
 # Set your location to track flights overhead
-LATITUDE = 52.363
-LONGITUDE = 14.060
+LATITUDE = 52.520    # Replace with your latitude
+LONGITUDE = 13.405   # Replace with your longitude
 
 # =============================================================================
 # Display Settings

@@ -9,13 +9,11 @@ A real-time flight tracker display for the Pixoo64 LED matrix. Shows information
 - Displays airline logo (automatically fetched and cached)
 - Shows origin and destination airport codes with animated route indicator
 - Rotating information display:
-  - Flight number
-  - Aircraft type (ICAO code)
-  - Aircraft registration
-  - Altitude
-  - Ground speed
-- Automatic data refresh
-- Fetches METAR weather data for destination airport
+  - Flight number and altitude
+  - Aircraft type and registration
+  - Ground speed and heading
+- Automatic data refresh (only updates when a new aircraft is detected)
+- macOS sleep prevention with `--caffeinate` flag
 
 ## Requirements
 
@@ -27,8 +25,8 @@ A real-time flight tracker display for the Pixoo64 LED matrix. Shows information
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/pixoo-flight-tracker.git
-   cd pixoo-flight-tracker
+   git clone https://github.com/chrivoge/PixooRadar.git
+   cd PixooRadar
    ```
 
 2. Create a virtual environment and install dependencies:
@@ -45,27 +43,31 @@ A real-time flight tracker display for the Pixoo64 LED matrix. Shows information
    python display_flight_data_pizoo.py
    ```
 
+   To prevent macOS from sleeping while the tracker runs:
+   ```bash
+   python display_flight_data_pizoo.py --caffeinate
+   ```
+
 ## Configuration
 
 Edit `config.py` to customize the flight tracker:
 
 ### Device Settings
 ```python
-PIXOO_IP = "192.168.178.36"  # Your Pixoo's IP address
-PIXOO_PORT = 80               # Usually 80
+PIXOO_IP = "192.168.x.x"  # Your Pixoo's IP address
 ```
 
 ### Location
 Set your coordinates to track flights overhead:
 ```python
-LATITUDE = 52.363
-LONGITUDE = 14.060
+LATITUDE = 52.520    # Your latitude
+LONGITUDE = 13.405   # Your longitude
 ```
 
 ### Timing
 ```python
-DATA_REFRESH_SECONDS = 60      # How often to check for new flights (seconds)
-ANIMATION_FRAME_SPEED = 200    # Animation frame speed in milliseconds (95-280ms recommended)
+DATA_REFRESH_SECONDS = 60    # How often to check for new flights (seconds)
+ANIMATION_FRAME_SPEED = 300  # Animation frame speed in milliseconds
 ```
 
 ### Colors
@@ -79,13 +81,13 @@ COLOR_BOX = "#454545"        # Dark gray - info boxes
 ## Project Structure
 
 ```
-pixoo-flight-tracker/
+PixooRadar/
 ├── config.py                    # Configuration settings
 ├── display_flight_data_pizoo.py # Main display script
 ├── flight_data.py               # FlightRadar24 API wrapper
-├── fonts/                       # BDF font files
-│   └── splitflap.bdf
-├── airline_logos/               # Cached airline logos (auto-created)
+├── fonts/
+│   └── splitflap.bdf            # BDF font for the display
+├── airline_logos/                # Cached airline logos (auto-created)
 ├── requirements.txt
 └── README.md
 ```
@@ -94,9 +96,9 @@ pixoo-flight-tracker/
 
 1. The tracker queries FlightRadar24 for flights within 100km of your location
 2. It finds the closest flight with valid airline information
-3. Flight details are fetched, including airline logo
-4. The display shows an animated view with the information
-5. Data refreshes automatically based on `DATA_REFRESH_ITERATIONS`
+3. Flight details are fetched, including airline logo (resized and cached locally)
+4. All animation frames are pre-computed and sent to the Pixoo as a native animation
+5. Data refreshes automatically based on `DATA_REFRESH_SECONDS`, but only re-sends the animation when a different aircraft becomes the closest
 
 ## Credits
 

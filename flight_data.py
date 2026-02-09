@@ -247,7 +247,6 @@ class FlightData:
                     # not present -> download and save (assume PNG)
                     logo_result = self.fr_api.get_airline_logo(iata=flight_data.get("airline_iata"), icao=flight_data.get("airline_icao"))
                     logo_bytes = None
-                    ext = "png"
                     if isinstance(logo_result, tuple) and len(logo_result) >= 1:
                         logo_bytes = logo_result[0]
                     else:
@@ -279,9 +278,9 @@ class FlightData:
 
 
 if __name__ == "__main__":
-    # Example usage
-    lat = 52.52
-    lon = 13.405
-    fd = FlightData(save_logo_dir="airline_logos")
-    data = fd.get_closest_flight_data(lat, lon)
+    # Example usage — uses coordinates from config.py
+    from config import LATITUDE, LONGITUDE, LOGO_DIR
+
+    fd = FlightData(save_logo_dir=LOGO_DIR)
+    data = fd.get_closest_flight_data(LATITUDE, LONGITUDE)
     print(json.dumps(data, indent=4))
