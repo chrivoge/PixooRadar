@@ -2,7 +2,7 @@
 
 A real-time flight tracker display for the Pixoo64 LED matrix. Shows information about the closest aircraft to your location, including airline logo, route, and flight details.
 
-![Flight Tracker Display](display.png)
+<img src="display" width="50%">
 
 ## Features
 
